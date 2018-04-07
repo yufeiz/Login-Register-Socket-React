@@ -36,7 +36,6 @@ class Login extends React.Component {
       <div>
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo></Logo>
-        <h2>login page</h2>
         <WingBlank>
           <List>
             {this.props.msg?<p className='error-msg'>{this.props.msg}</p>:null}

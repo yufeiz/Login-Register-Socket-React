@@ -4,15 +4,12 @@ import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {update} from '../../redux/user.redux'
 import {Redirect} from 'react-router-dom'
-import PropTypes from 'prop-types'
 @connect(
   state=>state.user,
   {update}
 )
 class BossInfo extends React.Component{
-    static propTypes = {
-      selectAvatar : PropTypes.func
-    }
+
     constructor(props) {
       super(props)
       this.state = {

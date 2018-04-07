@@ -15,7 +15,7 @@ class Register extends React.Component {
         user:'',
         pwd:'',
         repeatpwd:'',
-        type:'genuis'
+        type:'genius'
       }
       this.handleRegister = this.handleRegister.bind(this)
     }
@@ -34,7 +34,6 @@ class Register extends React.Component {
       <div>
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo></Logo>
-        <h2>register page</h2>
         <List>
           {this.props.msg?<p className='error-msg'>{this.props.msg}</p>:null}
           <InputItem
@@ -52,8 +51,8 @@ class Register extends React.Component {
             >Confirm Password</InputItem>
           <WhiteSpace />
           <RadioItem
-            checked={this.state.type==='genuis'}
-            onChange={()=> this.handleChange('type','genuis')}
+            checked={this.state.type==='genius'}
+            onChange={()=> this.handleChange('type','genius')}
             >
             realman
           </RadioItem>

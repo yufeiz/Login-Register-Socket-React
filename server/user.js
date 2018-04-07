@@ -5,9 +5,10 @@ const User = model.getModel('user')
 const utils = require('utility')
 const _filter = {'pwd':0, '__v':0}
 Router.get('/list', function(req,res) {
+  const type = req.query.type
   // User.remove({}, function(e,d) {})
-  User.find({}, function(err, doc) {
-    return res.json(doc)
+  User.find({type}, function(err, doc) {
+    return res.json({code:0, data:doc})
   })
 })
 
@@ -26,7 +27,8 @@ Router.post('/update', function(req, res) {
   })
 })
 Router.post('/login', function(req,res) {
-  const {user, pwd} = req.body
+  const user = req.body.user
+  const pwd = req.body.pwd
   User.findOne({user,pwd:md5Pwd(pwd)},{'pwd':0}, function(err,doc) {
     if(!doc) {
       return res.json({code:1, msg:'invalid password or accout'})
@@ -36,23 +38,21 @@ Router.post('/login', function(req,res) {
   })
 })
 Router.get('/info', function (req, res) {
-  const {userid} = req.cookies
+  const userid = req.cookies.userid
   if(!userid) {
-    console.log('no userid');
     return res.json({code:1})
   }
-  console.log('start find', userid);
   User.findOne({_id: userid}, _filter, function(err,doc) {
     if(err) {
-      console.log('err', err);
       return res.json({code:1, msg:'backend broken'})
     }
-    console.log('data is :', doc);
     return res.json({code:0, data:doc})
   })
 })
 Router.post('/register', function(req, res) {
-  const {user, pwd, type} = req.body
+  const user = req.body.user
+  const pwd = req.body.pwd
+  const type = req.body.type
   //
 
   // const {user, pwd, type} = req.body
@@ -74,7 +74,9 @@ Router.post('/register', function(req, res) {
       if(e) {
         return res.json({code:1, msg:'backend wrong'})
       }
-      const {user, type, _id} = d
+      const user = d.user
+      const  _id = d._id
+      const type = d.type
       res.cookie('userid', _id)
       return res.json({code:0, data:{user, type, _id}})
     })

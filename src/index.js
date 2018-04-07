@@ -3,7 +3,8 @@ import ReactDom from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import {BrowserRouter,
-        Route} from 'react-router-dom'
+        Route,
+        Switch} from 'react-router-dom'
 import { Provider } from 'react-redux'
 import reducers from './reducer'
 import Login from './container/login/login'
@@ -11,6 +12,7 @@ import Register from './container/register/register'
 import AuthRoute from './component/authroute/authroute'
 import BossInfo from './container/bossinfo/bossinfo'
 import GeniusInfo from './container/geniusinfo/geniusinfo'
+import Dashboard from './component/dashboard/dashboard'
 import './config.js'
 import './index.css'
 
@@ -24,10 +26,13 @@ const store = createStore(reducers, compose(
       <BrowserRouter>
         <div>
           <AuthRoute></AuthRoute>
+          <Switch>
           <Route path='/bossInfo' component={BossInfo}></Route>
           <Route path='/geniusinfo' component={GeniusInfo}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/register' component={Register}></Route>
+          <Route component={Dashboard}></Route>
+          </Switch>
         </div>
       </BrowserRouter>
     </Provider>),
