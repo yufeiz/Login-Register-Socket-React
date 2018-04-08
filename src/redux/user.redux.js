@@ -3,6 +3,7 @@ import {getRedirectPath} from '../util'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const LOAD_DATA = 'LOAD_DATA'
 const ERROR_MSG = ''
+const LOG_OUT = 'LOG_OUT'
 const initState = {
   redirectTo:'',
   msg:'',
@@ -19,6 +20,8 @@ export function user(state=initState, action) {
       return {...state, isAuth:false, msg:action.msg}
     case LOAD_DATA:
       return {...state, ...action.payload}
+    case LOG_OUT:
+      return {...initState, redirectTo:'/login'}
     default:
         return state
   }
@@ -48,7 +51,9 @@ export function login({user, pwd}) {
       })
   }
 }
-
+export function logoutSubmit() {
+  return {type: LOG_OUT}
+}
 export function update(data) {
   return dispatch=>{
     axios.post('/user/update', data)

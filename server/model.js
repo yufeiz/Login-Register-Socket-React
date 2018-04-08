@@ -15,8 +15,8 @@ const models = {
     'desc':{'type':String},
 
     'title':{'type':String},
-    'compony':{'type':String},
-    'money':{'type':String}
+    'company':{'type':String},
+    'salary':{'type':String}
   },
   chat: {
   }

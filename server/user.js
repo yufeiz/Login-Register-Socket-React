@@ -8,6 +8,7 @@ Router.get('/list', function(req,res) {
   const type = req.query.type
   // User.remove({}, function(e,d) {})
   User.find({type}, function(err, doc) {
+    console.log('list data', doc);
     return res.json({code:0, data:doc})
   })
 })
@@ -18,11 +19,13 @@ Router.post('/update', function(req, res) {
     return json.dump({code:1})
   }
   const body = req.body
+  console.log('requst bosy', body);
   User.findByIdAndUpdate(userid, body, function(err, doc) {
     const data = Object.assign({},{
       user:doc.user,
       type:doc.type
     }, body)
+    console.log('update', data);
     return res.json({code:0, data})
   })
 })

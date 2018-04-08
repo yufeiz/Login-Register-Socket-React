@@ -44,7 +44,7 @@ class BossInfo extends React.Component{
           <InputItem onChange={(v)=>this.onChange('company',v)}>
             Company
           </InputItem>
-          <InputItem onChange={(v)=>this.onChange('money',v)}>
+          <InputItem onChange={(v)=>this.onChange('salary',v)}>
             Salary
           </InputItem>
           <TextareaItem

@@ -4,16 +4,13 @@ import {NavBar} from 'antd-mobile'
 import NavLinkBar from '../navlink/navlink'
 import {Switch, Route} from 'react-router-dom'
 import Boss from '../../component/boss/boss'
-import './index.css'
-function Genius() {
-  return <h2>Genius page</h2>
-}
+import Genius from '../../component/genius/genius'
+import User from '../../component/user/user'
+// function User() {
+//   return <h2>User</h2>
+// }
 function Msg() {
   return <h2>message page</h2>
-}
-
-function User() {
-  return <h2>User page</h2>
 }
 @connect (
   state=>state
@@ -21,7 +18,9 @@ function User() {
 class Dashboard extends React.Component {
 
   render() {
+    console.log(this.props);
     const user = this.props.user
+    const pathname = this.props.location.pathname
     const navList = [
       {
         path:'/boss',
@@ -56,7 +55,7 @@ class Dashboard extends React.Component {
     ]
     return (
       <div>
-        <NavBar className='fixed-header' mode='bard'>{navList.find(v=>v.path===this.props.location.pathname).title}</NavBar>
+        <NavBar className='fixed-header' mode='bard'>{navList.find(v=>v.path===pathname).title}</NavBar>
         <div style={{marginTop:45}}>
           <Switch>
             {navList.map(v=>(
@@ -65,7 +64,7 @@ class Dashboard extends React.Component {
           </Switch>
         </div>
 
-        <NavLinkBar data={navList}></NavLinkBar>
+        <NavLinkBar className='bottom-nav-bar' data={navList}></NavLinkBar>
       </div>
       )
   }
