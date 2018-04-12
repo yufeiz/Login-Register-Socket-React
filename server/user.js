@@ -8,21 +8,27 @@ const _filter = {'pwd':0, '__v':0}
 
 Router.get('/list', function(req,res) {
   const type = req.query.type
-  // User.remove({}, function(e,d) {})
+   //User.remove({}, function(e,d) {})
   User.find({type}, function(err, doc) {
     return res.json({code:0, data:doc})
   })
 })
 
 Router.get('/getmsglist', function(req,res) {
-  const user = req.cookies.user
-  //'$or':[{from:user, to:user}]
-  Chat.find({}, function(err, doc) {
-    if(!err) {
-      console.log(doc);
-      return res.json({code:0, msg:doc})
-    }
+  const user = req.cookies.userid
+  User.find({}, function(e,userdoc) {
+    let users = {}
+    userdoc.forEach(v=>{
+      users[v._id] = {name:v.user, avatar:v.avatar}
+    })
+    //Chat.remove({}, ()=>{})
+    Chat.find({'$or':[{from:user}, {to:user}]}, function(err, doc) {
+      if(!err) {
+        return res.json({code:0, msg:doc, users:users})
+      }
+    })
   })
+  //'$or':[{from:user, to:user}]
 })
 Router.post('/update', function(req, res) {
   const userid = req.cookies.userid
@@ -30,7 +36,6 @@ Router.post('/update', function(req, res) {
     return json.dump({code:1})
   }
   const body = req.body
-  console.log('requst bosy', body);
   User.findByIdAndUpdate(userid, body, function(err, doc) {
     const data = Object.assign({},{
       user:doc.user,
@@ -47,6 +52,7 @@ Router.post('/login', function(req,res) {
       return res.json({code:1, msg:'invalid password or accout'})
     }
     res.cookie('userid', doc._id)
+    console.log('login response', doc);
     return res.json({code:0, data:doc})
   })
 })

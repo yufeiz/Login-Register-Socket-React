@@ -29,6 +29,7 @@ export function user(state=initState, action) {
 
 function authSuccess(obj) {
   const{pwd, ...data} = obj
+  console.log('data', data);
   return {type: AUTH_SUCCESS, payload:data}
 }
 export function loadData(userInfo) {
@@ -44,6 +45,7 @@ export function login({user, pwd}) {
       .then(res=>{
         if(res.status===200&&res.data.code===0) {
           // dispatch(registerSuccess({user.pwd,type}))
+          console.log('login response', res.data.data);
           dispatch(authSuccess(res.data.data))
         } else {
           dispatch(errorMsg(res.data.msg))
@@ -83,7 +85,7 @@ export function register({user, pwd, repeatpwd, type}) {
     axios.post('/user/register', {user, pwd, type})
       .then(res=>{
         if(res.status===200&&res.data.code===0) {
-          dispatch(authSuccess({user,pwd,type}))
+          dispatch(authSuccess(res.data.data))
         } else{
           dispatch(errorMsg(res.data.msg))
         }

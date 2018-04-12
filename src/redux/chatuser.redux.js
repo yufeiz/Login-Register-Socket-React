@@ -14,7 +14,6 @@ export function chatuser(state=initState, action) {
   }
 }
 
-
 function userList(data) {
   return {type:USER_LIST, payload:data}
 }

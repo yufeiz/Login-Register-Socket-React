@@ -28,10 +28,8 @@ class User extends React.Component {
   }
   render() {
     const props = this.props
-    console.log(props);
     const Item = List.Item
     const Brief = Item.Brief
-    console.log('props.user', props.user);
     return  props.user ? (
       <div>
         <Result
