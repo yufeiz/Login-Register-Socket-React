@@ -29,7 +29,6 @@ export function user(state=initState, action) {
 
 function authSuccess(obj) {
   const{pwd, ...data} = obj
-  console.log('data', data);
   return {type: AUTH_SUCCESS, payload:data}
 }
 export function loadData(userInfo) {
